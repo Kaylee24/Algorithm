@@ -12,4 +12,3 @@ print(jaeums)
 for jaeum in jaeums:
     if len(jaeum) >= 3:
         result = no_acceptable
-
