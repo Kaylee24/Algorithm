@@ -1,45 +1,52 @@
-import re
+finish = False
+while finish == False:
+    result = 'acceptable'
+    pw = input()
+    pw_lst = list(pw)
+    if pw == 'end':
+        finish = True
+    else:
 
-inputs = True
-result = 'acceptable'
+        # 1. 모음(a, e, i, o, u) 하나를 반드시 포함하여야 한다.
+        vowel = ['a', 'e', 'i', 'o', 'u']
+        for v in vowel:
+            if v in pw:
+                # 2, 3단계 검증
+                # 2. 모음이 3개 혹은 자음이 3개 연속으로 오면 안된다.
+                mo = 0
+                ja = 0
+                while pw_lst != []:
+                    if pw_lst.pop() in vowel:
+                        mo += 1
+                        ja = 0
+                        if mo >= 3 or ja >= 3:
+                            result = 'not acceptable'
+                            print(f'<{pw}> is {result}.')
+                            break
+                    else:
+                        mo = 0
+                        ja += 1
+                        if mo >= 3 or ja >= 3:
+                            result = 'not acceptable'
+                            print(f'<{pw}> is {result}.')
+                            break
 
-'''
-문자열이 아니라 리스트로 받아서 재진행해보기
-'''
+                else:
+                    # 3단계 검증
+                    # 3. 같은 글자가 연속적으로 두번 오면 안되나, ee 와 oo 는 허용한다.
+                    for i in range(len(pw) - 1):
+                        if pw[i] == pw[i + 1]:
+                            if pw[i] == 'e' or pw[i] == 'o':
+                                pass
+                            else:
+                                result = 'not acceptable'
+                                print(f'<{pw}> is {result}.')
+                                break
+                    else:
+                        print(f'<{pw}> is {result}.')
+                    break
 
-while inputs == True:
-    password = input()
-    if password == 'end':
-        inputs = False
-        break
-    print(f'<{password}> is {result}.')
-
-    # 1. 모음(a, e, i, o, u) 하나를 반드시 포함하여야 한다.
-    for vowel in ['a', 'e', 'i', 'o', 'u']:
-        if vowel not in password:
-            result = 'not acceptable'
-    print(f'<{password}> is {result}.')
-
-    # 2. 모음이 3개 혹은 자음이 3개 연속으로 오면 안된다.
-    jaeums = re.split('a|e|i|o|u', password)
-
-    moeum_cnt = 0
-    for j in range(1, len(jaeums) - 1):
-        if (jaeums[j] == '' and jaeums[j + 1] == '') or (jaeums[j] == '' and jaeums[j - 1] == ''):
-            moeum_cnt += 1
+                break
         else:
-            moeum_cnt = 0
-            if len(jaeums[j]) >= 3:
-                result = 'not acceptable'
-
-    if moeum_cnt >= 3:
-        result = 'not acceptable'
-    print(f'<{password}> is {result}.')
-
-    # 3. 같은 글자가 연속적으로 두번 오면 안되나, ee 와 oo 는 허용한다.
-    for i in range(len(password) - 1):
-        if password[i] == password[i + 1] and password != 'e' and password != 'o':
             result = 'not acceptable'
-
-    # 결과 출력
-    print(f'<{password}> is {result}.')
+            print(f'<{pw}> is {result}.')
