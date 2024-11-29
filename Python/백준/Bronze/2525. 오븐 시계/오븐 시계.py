@@ -1,11 +1,6 @@
 A, B = map(int, input().split())
 C = int(input())
 
-H, M = A + C//60, B + C%60
-if M > 59:
-    M -= 60
-    H += 1
-if H > 23:
-    H -= 24
+time = A * 60 + B + C
 
-print(H, M)
+print((time//60)%24, time%60)
