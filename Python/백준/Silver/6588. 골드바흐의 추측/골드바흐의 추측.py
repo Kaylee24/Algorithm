@@ -17,7 +17,7 @@ def goldbach():
     primes = [0] * 2 + [1] * (L-1)
     for i in range(2, int(L**0.5)+1):
         if primes[i]:
-            for j in range(i*2, L+1, i):
+            for j in range(i*i, L+1, i):
                 primes[j] = False
 
     for num in nums:
