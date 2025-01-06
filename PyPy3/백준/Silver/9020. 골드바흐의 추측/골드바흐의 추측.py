@@ -1,21 +1,21 @@
 import sys
 input = sys.stdin.readline
 
-def is_prime(N):
-    if N == 1:
-        return False
-    for j in range(2, int(N**0.5)+1):
-        if N % j == 0:
-            return False
-    return True
-
+nums = []
 for _ in range(int(input())):
-    num = int(input())
+    nums.append(int(input()))
 
-    small_gb = num//2
-    while 1:
-        if is_prime(small_gb) and is_prime(num-small_gb):
-            print(small_gb, num-small_gb)
+L = max(nums)
+
+prime_check = [False] * 2 + [True] * (L-1)
+
+for i in range(2, int(L**0.5)+1):
+    if prime_check[i]:
+        for j in range(2*i, L+1, i):
+            prime_check[j] = False
+
+for num in nums:
+    for i in range(num//2, 1, -1):
+        if prime_check[i] and prime_check[num-i]:
+            print(i, num-i)
             break
-        else:
-            small_gb -= 1
