@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 def is_prime(N):
     if N == 1:
         return False
