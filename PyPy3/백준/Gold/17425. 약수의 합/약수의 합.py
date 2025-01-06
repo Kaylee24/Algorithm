@@ -5,16 +5,13 @@ nums = []
 for _ in range(int(input())):
     nums.append(int(input()))
 
-L = max(nums)
-
-f = [0] * (L+1)
-for i in range(1, L+1):
-    for j in range(i, L+1, i):
+f = [0] * (1000001)
+for i in range(1, 1000001):
+    for j in range(i, 1000001, i):
         f[j] += i
 
-g = [0] * (L+1)
-for i in range(1, L+1):
-    g[i] = g[i-1] + f[i]
+for i in range(1, 1000001):
+    f[i] += f[i-1]
 
 for num in nums:
-    print(g[num])
+    print(f[num])
