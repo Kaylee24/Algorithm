@@ -12,6 +12,9 @@ maximum = float('-inf')
 def f(cnt, sums, now):
     global maximum
 
+    if sums + (K-cnt) * 10000 <= maximum:
+        return
+
     if cnt == K:
         if sums > maximum:
             maximum = sums
