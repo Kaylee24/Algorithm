@@ -1,30 +1,14 @@
-L, C = map(int, input().split())   # L개의 알파벳 소문자, C가지 암호로 사용했을 법한 문자의 종류
-arr = list(map(str, input().split()))
-arr.sort()
+from itertools import *
 
-visited = [0] * C
-result = []
-password = []
+vowels = ['a', 'e', 'i', 'o', 'u']
+L, C = map(int, input().split())
+arr = list(input().split())
+pws = []
 
+for com in combinations(sorted(arr), L):
+    v = sum(x in vowels for x in com)
+    if v >= 1 and L - v >= 2:
+        pws.append(com)
 
-def f(last, cnt):
-    if cnt == L:
-        vowels = 0
-        for char in password:
-            if char in ['a', 'e', 'i', 'o', 'u']:
-                vowels += 1
-        cons = L - vowels
-        if vowels >= 1 and cons >= 2:
-            result.append(''.join(password))
-
-    for i in range(last, C):
-        if visited[i] == 0:
-            visited[i] = 1
-            password.append(arr[i])
-            f(i, cnt+1)
-            password.pop()
-            visited[i] = 0
-
-
-f(0, 0)
-print(*result, sep='\n')
+for pw in pws:
+    print(''.join(pw))
