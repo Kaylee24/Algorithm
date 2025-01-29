@@ -1,7 +1,4 @@
 students = set(range(1, 31))
-done = [int(input()) for _ in range(28)]
-done = set(done)
-bad = sorted(list(students - done))
+done = set([int(input()) for _ in range(28)])
 
-print(bad[0])
-print(bad[1])
+print(*sorted(list(students - done)), sep='\n')
