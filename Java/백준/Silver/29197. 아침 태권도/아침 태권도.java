@@ -10,27 +10,39 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
 
-        // 각 학생들 별로 기울기를 구하고 set 에 넣는다.
-        // set 의 원소의 수를 구한다.
-        Set<Double> slopes = new HashSet<>();
+        Set<Double> quad1 = new HashSet<>();
+        Set<Double> quad2 = new HashSet<>();
+        Set<Double> quad3 = new HashSet<>();
+        Set<Double> quad4 = new HashSet<>();
+        Set<String> axis = new HashSet<>();
 
-        for (int i=0; i<N; i++) {
+        for (int i = 0; i < N; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
             int X = Integer.parseInt(st.nextToken());
             int Y = Integer.parseInt(st.nextToken());
 
-            if (X == 0) {
-                if (Y > 0) {
-                    slopes.add(Double.POSITIVE_INFINITY);
-                } else {
-                    slopes.add(Double.NEGATIVE_INFINITY);
-                }
-            } else {
-                double slope = (double) Y/X;
-                slopes.add(slope);
+            if (X > 0 && Y > 0) {
+                quad1.add((double) Y/X);
+            } else if (X < 0 && Y > 0) {
+                quad2.add((double) Y/X);
+            } else if (X < 0 && Y < 0) {
+                quad3.add((double) Y/X);
+            } else if (X > 0 && Y < 0) {
+                quad4.add((double) Y/X);
+            }
+            else if (X == 0 && Y > 0) {
+                axis.add("Y");
+            } else if (X == 0 && Y < 0) {
+                axis.add("-Y");
+            } else if (X > 0 && Y == 0) {
+                axis.add("X");
+            } else if (X < 0 && Y == 0) {
+                axis.add("-X");
             }
         }
 
-        System.out.println(slopes.size());
+        int cnt = quad1.size() + quad2.size() + quad3.size() + quad4.size() + axis.size();
+        System.out.println(cnt);
+        br.close();
     }
 }
