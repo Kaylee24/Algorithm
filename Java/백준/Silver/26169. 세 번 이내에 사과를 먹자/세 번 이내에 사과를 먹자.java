@@ -5,7 +5,6 @@ import java.util.StringTokenizer;
 
 public class Main {
     static int[][] board = new int[5][5];
-    static boolean[][] visited = new boolean[5][5];
     static int r, c;
     static int[] di = {1, -1, 0, 0};
     static int[] dj = {0, 0, 1, -1};
@@ -44,12 +43,10 @@ public class Main {
         for (int k=0; k<4; k++) {
             int nr = i+di[k];
             int nc = j+dj[k];
-            if (0<=nr && nr<5 && 0<=nc && nc<5 && !visited[nr][nc] && board[nr][nc]!=-1) {
+            if (0<=nr && nr<5 && 0<=nc && nc<5 && board[nr][nc]!=-1) {
                 int a = board[nr][nc];
-                visited[nr][nc] = true;
                 board[nr][nc] = -1;
                 dfs(nr, nc, move+1, apple+a);
-                visited[nr][nc] = false;
                 board[nr][nc] = a;
             }
         }
