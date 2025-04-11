@@ -18,7 +18,7 @@ public class Main {
             for (String b : B.split("")) {
                 int j = Integer.parseInt(b);
 
-                result += i*j;
+                result += (long) i*j;
             }
         }
 
